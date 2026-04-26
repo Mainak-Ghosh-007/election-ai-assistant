@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Election AI Assistant</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+        }
+
+        .container {
+            width: 60%;
+            margin: auto;
+            margin-top: 40px;
+            background: white;
+            color: black;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3c72;
+        }
+
+        h3 {
+            text-align: center;
+            color: #555;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            background: #2a5298;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #1e3c72;
+        }
+
+        .answer {
+            margin-top: 20px;
+            background: #f0f6ff;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 5px solid #2a5298;
+        }
+
+        .section {
+            margin-top: 30px;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            background: #eef;
+        }
+
+        .faq {
+            text-align: center;
+        }
+
+        .faq button {
+            margin: 5px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            background: #ddd;
+            cursor: pointer;
+            transition: 0.3s;
+            width: auto;
+        }
+
+        .faq button:hover {
+            background: #2a5298;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Election BUDDY</h1>
+        <h3>Elections Wali Qs (EWQs) Puchho</h3>
+
+        <!-- AI Question Section -->
+        <div class="section">
+            <form method="POST">
+                <textarea name="question" placeholder="Ask anything about elections...">{{ question }}</textarea>
+                <button type="submit">Ask AI</button>
+            </form>
+
+            {% if answer %}
+            <div class="answer">
+                <h4>🤖 Answer:</h4>
+                <p>{{ answer }}</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Eligibility Checker -->
+        <div class="section">
+            <h3>🧾 Check Voter Eligibility</h3>
+
+            <form method="POST">
+                <input type="number" name="age" placeholder="Enter your age" required>
+
+                <select name="citizen">
+                    <option value="yes">Indian Citizen</option>
+                    <option value="no">Not a Citizen</option>
+                </select>
+
+                <button type="submit">Check Eligibility</button>
+            </form>
+
+            {% if eligibility_result %}
+            <div class="result">
+                {{ eligibility_result }}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="section">
+            <h3>❓ Frequently Asked Questions</h3>
+
+            <div class="faq">
+                <button type="button" onclick="askQuestion('What documents are required for voting?')">
+                    📄 Documents Required
+                </button>
+
+                <button type="button" onclick="askQuestion('Explain election process')">
+                    🗳 Election Process
+                </button>
+
+                <button type="button" onclick="askQuestion('How to vote?')">
+                    ✅ How to Vote
+                </button>
+
+                <button type="button" onclick="askQuestion('What is EVM?')">
+                    🖥 What is EVM
+                </button>
+
+                <button type="button" onclick="askQuestion('Minimum age to vote')">
+                    🎂 Minimum Age Requirement
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function askQuestion(q) {
+            document.querySelector('textarea[name="question"]').value = q;
+            document.querySelector('form').submit();
+        }
+    </script>
+
+</body>
+
+</html>
